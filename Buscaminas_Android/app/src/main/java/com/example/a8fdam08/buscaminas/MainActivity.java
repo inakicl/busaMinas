@@ -15,67 +15,86 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+    GridLayout main;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-       /* GridLayout gridLayout = new GridLayout(getApplicationContext());
-        int total = 16;
-        int column =  8;
-        int row = 8;
-        gridLayout.setAlignmentMode(GridLayout.ALIGN_BOUNDS);
-        gridLayout.setColumnCount(column);
-        gridLayout.setRowCount(row );
-        Button b;
-        for(int i =0, c = 0, r = 0; i < total; i++, c++)
-        {
-            if(c == column)
-            {
-                c = 0;
-                r++;
-            }
-            b = new Button(getApplicationContext());
-            b.setText("te");
-            gridLayout.addView(b, i);
-            b.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-            GridLayout.LayoutParams param =new GridLayout.LayoutParams();
-            param.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            param.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-            param.rightMargin = 5;
-            param.topMargin = 5;
-            param.setGravity(Gravity.CENTER);
-            param.columnSpec = GridLayout.spec(c);
-            param.rowSpec = GridLayout.spec(r);
-            b.setLayoutParams (param);
-        }*/
-        modoFacil();
+        main = (GridLayout) findViewById(R.id.tablero);
+        //modoFacil();
+        rellenaBotones(18);
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-    public void modoFacil() {
+    TableLayout tableLayout;
+
+    public void rellenaBotones(int dificultad) {
+        tableLayout = new TableLayout(this);
+        //con esto se adapta al tamaño de la pantalla
+        tableLayout.setStretchAllColumns(true);
+        tableLayout.setShrinkAllColumns(true);
+
+        //se pegue a su padre
+        tableLayout.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT));
+        tableLayout.setWeightSum(dificultad);
+
+        for (int i = 0; i < dificultad; i++) {
+            TableRow tr = new TableRow(this);
+            tr.setGravity(Gravity.CENTER);
+            tr.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT, (float) 1.0));
+
+            for (int j = 0; j < dificultad; j++) {
+                Button botonEscondido = new Button(this);
+                botonEscondido.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
+                botonEscondido.setId(i + 1000);
+
+                botonEscondido.setText(i + "," + j);
+                //esconder el texto como control.
+                botonEscondido.setTextSize(0);
+                //tiledBoton.setOnClickListener(this);
+                // tiledBoton.setOnLongClickListener(this);
+                tr.addView(botonEscondido);
+            }
+            tableLayout.addView(tr);
+        }
+        // main.removeAllViews();
+        main.addView(tableLayout);
+
+        // if (!jugando) deshabilitaTablero(tableLayout);
+    }
+
+
+   /* public void modoFacil() {
         GridLayout g = (GridLayout) findViewById(R.id.tablero);
 
         Button b;
-        for (int i = 0; i < 8 * 8; i++) {
+        LinearLayout linea = new LinearLayout(this);
 
-            b = new Button(this);
+        for (int j = 0; j < 8 * 8; j++) {
+            linea.setGravity(Gravity.CENTER);
+            linea.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, (float) 1.0));
+            for (int i = 0; i < 8 * 8; i++) {
 
-            b.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+                b = new Button(this);
 
-            b.setMaxWidth(10);
-            b.setMaxHeight(10);
-            b.setText("");
-            b.setId(View.generateViewId());
-            g.addView(b, i);
+                b.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+                b.setGravity(Gravity.CENTER);
+                b.setText("");
+                b.setId(i + 1000);
+                linea.addView(b);
+            }
+            main.addView(linea);
         }
-    }
+    }*/
 
     //se crea el menu inflándolo del layout personalizado
     @Override
