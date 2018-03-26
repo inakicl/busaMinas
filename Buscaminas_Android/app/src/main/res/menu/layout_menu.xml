@@ -5,8 +5,8 @@
 
     <item
         android:id="@+id/uno"
-        android:title="1" />
+        android:title="Instrucciones" />
     <item
         android:id="@+id/dos"
-        android:title="2" />
+        android:title="Seleccionar dificultad" />
 </menu>

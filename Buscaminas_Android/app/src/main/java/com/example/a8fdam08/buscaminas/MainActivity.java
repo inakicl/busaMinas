@@ -20,88 +20,31 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
-
-    GridLayout main;
+public class MainActivity extends AppCompatActivity implements DialogoMenuYDificultad.RespuestaDialogoSexo {
+    TableroYDificultad tabla;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        main = (GridLayout) findViewById(R.id.tablero);
-        //modoFacil();
-        rellenaBotones(18);
+        tabla = new TableroYDificultad();
+        tabla.setV(this);
+        tabla.setGrid((GridLayout) findViewById(R.id.tablero));
+        tabla.modoFacil();
+
 
     }
 
-    TableLayout tableLayout;
-
-    public void rellenaBotones(int dificultad) {
-        tableLayout = new TableLayout(this);
-        //con esto se adapta al tamaño de la pantalla
-        tableLayout.setStretchAllColumns(true);
-        tableLayout.setShrinkAllColumns(true);
-
-        //se pegue a su padre
-        tableLayout.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT));
-        tableLayout.setWeightSum(dificultad);
-
-        for (int i = 0; i < dificultad; i++) {
-            TableRow tr = new TableRow(this);
-            tr.setGravity(Gravity.CENTER);
-            tr.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT, (float) 1.0));
-
-            for (int j = 0; j < dificultad; j++) {
-                Button botonEscondido = new Button(this);
-                botonEscondido.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT));
-                botonEscondido.setId(i + 1000);
-
-                botonEscondido.setText(i + "," + j);
-                //esconder el texto como control.
-                botonEscondido.setTextSize(0);
-                //tiledBoton.setOnClickListener(this);
-                // tiledBoton.setOnLongClickListener(this);
-                tr.addView(botonEscondido);
-            }
-            tableLayout.addView(tr);
-        }
-        // main.removeAllViews();
-        main.addView(tableLayout);
-
-        // if (!jugando) deshabilitaTablero(tableLayout);
-    }
-
-
-   /* public void modoFacil() {
-        GridLayout g = (GridLayout) findViewById(R.id.tablero);
-
-        Button b;
-        LinearLayout linea = new LinearLayout(this);
-
-        for (int j = 0; j < 8 * 8; j++) {
-            linea.setGravity(Gravity.CENTER);
-            linea.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, (float) 1.0));
-            for (int i = 0; i < 8 * 8; i++) {
-
-                b = new Button(this);
-
-                b.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-                b.setGravity(Gravity.CENTER);
-                b.setText("");
-                b.setId(i + 1000);
-                linea.addView(b);
-            }
-            main.addView(linea);
-        }
-    }*/
 
     //se crea el menu inflándolo del layout personalizado
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.layout_menu, menu);
+
         return true;
+
     }
 
     @Override
@@ -115,12 +58,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        DialogoMenuYDificultad ds = new DialogoMenuYDificultad();
+        InstruccionesDialogo insD = new InstruccionesDialogo();
         switch (id) {
             case R.id.uno:
-                Toast.makeText(getApplicationContext(), "Se ha seleccionado Árbol Genialógico", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "Se ha seleccionado Árbol Genialógico", Toast.LENGTH_LONG).show();
+                insD.show(getFragmentManager(), "Mi diálogo");
                 return true;
             case R.id.dos:
-                Toast.makeText(getApplicationContext(), "Se ha pulsado la opción de \"ajustes\"", Toast.LENGTH_LONG).show();
+                ds.setTabla(tabla);
+                ds.show(getFragmentManager(), "Mi diálogo");
+               /* Toast.makeText(getApplicationContext(), "Se ha pulsado la opción de \"ajustes\"", Toast.LENGTH_LONG).show();*/
                 return true;
         }
 
@@ -170,4 +118,10 @@ public class MainActivity extends AppCompatActivity {
             mActionModeCallback = null;
         }
     };
+
+    //respuesta del selector de dificultad
+    @Override
+    public void onRespuesta(String s) {
+
+    }
 }
