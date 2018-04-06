@@ -1,12 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <item
-        android:id="@+id/uno"
-        android:title="Instrucciones" />
+        android:id="@+id/nuevaPartida"
+        android:title="Nueva"
+        app:showAsAction="always"
+        ></item>
+
     <item
-        android:id="@+id/dos"
-        android:title="Seleccionar dificultad" />
+        android:id="@+id/cambiarIcono"
+
+        android:title="Iconos"
+        app:showAsAction="always" />
+
+
+    <item
+        android:id="@+id/instucciones"
+        android:title="Instrucciones"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/dificultad"
+        android:title="Seleccionar dificultad"
+        app:showAsAction="never"/>
 </menu>

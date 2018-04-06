@@ -15,17 +15,23 @@ public class DialogoMenuYDificultad extends DialogFragment {
 
     TableroYDificultad tabla;
     RespuestaDialogoSexo respuesta;
-    Integer selectorDeDificultad;
+    Integer selectorDeDificultad = 0; //iniciar para evital nullexception
     String[] dificultad = {"Fácil", "Normal", "Difícil"};
+    //el modo que esta actualmente puesto
+    int modoAlEntrarAlDialogo = 0;
 
     //Este método es llamado al hacer el show() de la clase DialogFragmet()
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        //el modo que esta actualmente puesto
+        modoAlEntrarAlDialogo = tabla.getDificultad() - 1;
+
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Elige la dificultad:").setSingleChoiceItems(dificultad, -1, new DialogInterface.OnClickListener() {
+        builder.setTitle("Elige la dificultad:").setSingleChoiceItems(dificultad, modoAlEntrarAlDialogo, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                //cada vez que se selecciona una opcion cambia el int
+                //cada vez que se selecciona una opcion cambia el int i
+                System.out.println("xdDDDDD  " + i);
                 switch (i) {
                     case 0:
                         selectorDeDificultad = 1;
@@ -35,6 +41,9 @@ public class DialogoMenuYDificultad extends DialogFragment {
                         break;
                     case 2:
                         selectorDeDificultad = 3;
+                        break;
+                    default:
+                        selectorDeDificultad = 0;
                         break;
                 }
 
@@ -52,6 +61,9 @@ public class DialogoMenuYDificultad extends DialogFragment {
                         break;
                     case 3:
                         tabla.modoDificil();
+                        break;
+                    default:
+
                         break;
                 }
 
