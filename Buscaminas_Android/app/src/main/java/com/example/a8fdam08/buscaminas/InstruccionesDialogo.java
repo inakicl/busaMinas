@@ -16,7 +16,7 @@ public class InstruccionesDialogo extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("ey").setTitle("Instrucciones").setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+        builder.setMessage(R.string.instrucciones).setTitle("Instrucciones").setPositiveButton("Volver", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 

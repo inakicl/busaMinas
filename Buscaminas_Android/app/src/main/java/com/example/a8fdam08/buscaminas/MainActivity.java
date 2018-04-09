@@ -63,33 +63,33 @@ public class MainActivity extends AppCompatActivity implements DialogoMenuYDific
     }
 
     public void ponerCristales() {
-        int actualMinas = 0;
-        int totalMinas;
+        int actualCristales = 0;
+        int totalCristales;
         switch (tabla.getDificultad()) {
             case 1:
-                totalMinas = 10;
+                totalCristales = 10;
                 break;
             case 2:
-                totalMinas = 30;
+                totalCristales = 30;
                 break;
             case 3:
-                totalMinas = 60;
+                totalCristales = 60;
                 break;
             default:
-                totalMinas = -1;
+                totalCristales = -1;
                 break;
         }
 
         Random r = new Random();
 
-        while (actualMinas < totalMinas) {
+        while (actualCristales < totalCristales) {
             //poner minas de forma aleatoria por el tablero virtual
             int i = r.nextInt(tabla.getTamaño());
             int j = r.nextInt(tabla.getTamaño());
             //comprobar que no se repita
             if (tablaVirtual[i][j] == 0) {
                 tablaVirtual[i][j] = -1;
-                actualMinas++;
+                actualCristales++;
             }
         }
     }
@@ -132,6 +132,16 @@ public class MainActivity extends AppCompatActivity implements DialogoMenuYDific
                         String[] coordenadas = b.getText().toString().split(",");
                         limpiarCasillasVaciasCercanas(b, Integer.parseInt(coordenadas[0]), Integer.parseInt(coordenadas[1]));
                     }
+                    /*if (compruebaCelda(x + xt, y + yt) >0 && botonesPulsadosSobreLaTabla[x + xt][y + yt] != true  ){
+                        Button b = (Button) traerBoton(x + xt, y + yt);
+                       // b.setBackgroundColor(getResources().getColor(R.color.naranja));
+                        b.setTextColor(Color.BLUE);
+                        b.setTextSize(18);
+                        b.setEnabled(false);
+                        botonesPulsadosSobreLaTabla[x + xt][y + yt] = true;
+                        String[] coordenadas = b.getText().toString().split(",");
+                        limpiarCasillasVaciasCercanas(b, Integer.parseInt(coordenadas[0]), Integer.parseInt(coordenadas[1]));
+                    }*/
                 }
             }
         }

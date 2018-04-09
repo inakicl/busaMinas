@@ -31,7 +31,7 @@ public class DialogoMenuYDificultad extends DialogFragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 //cada vez que se selecciona una opcion cambia el int i
-                System.out.println("xdDDDDD  " + i);
+                System.out.println("pruebaaa  " + i);
                 switch (i) {
                     case 0:
                         selectorDeDificultad = 1;

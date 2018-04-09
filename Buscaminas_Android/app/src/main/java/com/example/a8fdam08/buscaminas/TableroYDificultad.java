@@ -23,6 +23,7 @@ public class TableroYDificultad {
     private TableLayout tablaPrincipal;
     private int dificultad = 0; //1 facil 8*8 y 10 minas; 2 normal 12*12 y 30 minas; 3 dificil 16*16 y 60 minas
     private int tamaño;
+    private int cantidadCristales = 0;
 
 
     public TableroYDificultad() {
@@ -31,16 +32,21 @@ public class TableroYDificultad {
 
     public void modoFacil() {
         this.dificultad = 1;
+        cantidadCristales = 10;
         crearTabla();
     }
 
     public void modoNormal() {
         this.dificultad = 2;
+        cantidadCristales = 30;
+
         crearTabla();
     }
 
     public void modoDificil() {
         this.dificultad = 3;
+        cantidadCristales = 60;
+
         crearTabla();
     }
 
@@ -110,6 +116,8 @@ public class TableroYDificultad {
 
                             //darle la vuelta por ahora
                             b.setScaleY(-1);
+                            b.setText("X");
+                            b.setTextSize(18);
                             deshabilitaTablero(view);
                         }
 
@@ -125,9 +133,9 @@ public class TableroYDificultad {
                         if (valorBoton > 0) {
                             Button b = (Button) view;
                             b.setText(String.valueOf(valorBoton));
-                            b.setTextColor(Color.WHITE);
-                            b.setBackgroundColor(v.getResources().getColor(R.color.naranja));
-                            b.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+                            b.setTextColor(Color.BLUE);
+                            // b.setBackgroundColor(v.getResources().getColor(R.color.naranja));
+                            b.setTextSize(18);
                             view.setEnabled(false);
                             v.botonesPulsadosSobreLaTabla[x][y] = true;
                         }
@@ -152,17 +160,22 @@ public class TableroYDificultad {
                         }
 
 
-                        //cuando hay mina en la casilla, Fin del juego
+                        //cuando hay mina en la casilla, else, Fin del juego
                         if (valorBoton == -1) {
+                            cantidadCristales -= 1;
                             Button b = (Button) view;
                             b.setEnabled(false);
                             b.setBackgroundResource(R.mipmap.cristal1);
-                            Toast.makeText(v.getBaseContext(), "Has encontrado un cristal, quedan " + "x", Toast.LENGTH_LONG).show();
+                            Toast.makeText(v.getBaseContext(), "Has encontrado un cristal, quedan " + cantidadCristales, Toast.LENGTH_LONG).show();
 
 
                         } else {
                             Toast.makeText(v.getBaseContext(), "Aqui no hay ningun cristal\n          Fin del juego", Toast.LENGTH_LONG).show();
                             deshabilitaTablero(view);
+                        }
+                        if (cantidadCristales == 0){
+                            deshabilitaTablero(view);
+                            Toast.makeText(v.getBaseContext(), "Enhorabuena, has encontrado todos los cristales.", Toast.LENGTH_LONG).show();
                         }
                         return true;
                     }

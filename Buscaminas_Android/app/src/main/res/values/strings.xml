@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">BuscaMinas</string>
+    <string name="instrucciones"> El juego es tipo "Buscaminas".
+    Cuando pulsas en una casilla, sale un número que identifica cuantos cristales tiene alrededor.
+        Ten cuidado porque si pulsas en una casilla que tenga un cristal escondido, perderás.
+        Si crees o tienes la certeza de que hay un cristal, haz un click largo sobre la casilla para señalarla.
+        No hagas un click largo en una casilla donde no haya un cristal porque perderás.
+        Ganas una vez hayas encontrado todos los cristales del señor N. Cortés.
+    </string>
 </resources>
