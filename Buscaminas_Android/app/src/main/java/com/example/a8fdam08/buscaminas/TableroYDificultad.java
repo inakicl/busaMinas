@@ -165,7 +165,17 @@ public class TableroYDificultad {
                             cantidadCristales -= 1;
                             Button b = (Button) view;
                             b.setEnabled(false);
-                            b.setBackgroundResource(R.mipmap.cristal1);
+                            switch (iconoTipo) {
+                                case 0:
+                                    b.setBackgroundResource(R.mipmap.cristal1);
+                                    break;
+                                case 1:
+                                    b.setBackgroundResource(R.mipmap.cristal2);
+                                    break;
+                                case 2:
+                                    b.setBackgroundResource(R.mipmap.cristal3);
+                                    break;
+                            }
                             Toast.makeText(v.getBaseContext(), "Has encontrado un cristal, quedan " + cantidadCristales, Toast.LENGTH_LONG).show();
 
 
@@ -213,12 +223,15 @@ public class TableroYDificultad {
         switch (dificultad) {
             case 1:
                 tamaño = 8;
+                cantidadCristales = 10;
                 break;
             case 2:
                 tamaño = 12;
+                cantidadCristales = 30;
                 break;
             case 3:
                 tamaño = 16;
+                cantidadCristales = 60;
                 break;
             default:
                 break;
